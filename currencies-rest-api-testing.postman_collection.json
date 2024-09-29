@@ -1,0 +1,337 @@
+{
+	"info": {
+		"_postman_id": "2daeef16-7eab-4ab5-9473-95b62f66c563",
+		"name": "currencies-rest-api-testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34795788"
+	},
+	"item": [
+		{
+			"name": "сurrencies",
+			"item": [
+				{
+					"name": "http://localhost:8080/currencies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/currencies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"currencies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/currencies/USD",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/currencies/USD",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"currencies",
+								"USD"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/currencies",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Brazilian Real",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "BRL",
+									"type": "text"
+								},
+								{
+									"key": "sign",
+									"value": "R$",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/currencies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"currencies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/currencies/USD",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "USDT",
+									"type": "text"
+								},
+								{
+									"key": "sign",
+									"value": "₮",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/currencies/USD",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"currencies",
+								"USD"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/currencies/BRL",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/currencies/BRL",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"currencies",
+								"BRL"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "exchangeRates",
+			"item": [
+				{
+					"name": "http://localhost:8080/exchangeRates",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/exchangeRates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"exchangeRates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/exchangeRate/USDHUF",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/exchangeRate/USDHUF",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"exchangeRate",
+								"USDHUF"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/exchangeRates",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "baseCurrencyCode",
+									"value": "USD",
+									"type": "text"
+								},
+								{
+									"key": "targetCurrencyCode",
+									"value": "BRL",
+									"type": "text"
+								},
+								{
+									"key": "rate",
+									"value": "5.42",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/exchangeRates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"exchangeRates"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/exchangeRate/USDBRL",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "rate",
+									"value": "5.32",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/exchangeRate/USDBRL",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"exchangeRate",
+								"USDBRL"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/exchangeRate/USDBRT",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/exchangeRate/USDBRL",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"exchangeRate",
+								"USDBRL"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "exchange",
+			"item": [
+				{
+					"name": "http://localhost:8080//exchange?from=EUR&to=BRL&amount=10",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/exchange?from=BRL&to=EUR&amount=450",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"",
+								"exchange"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "BRL"
+								},
+								{
+									"key": "to",
+									"value": "EUR"
+								},
+								{
+									"key": "amount",
+									"value": "450"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
