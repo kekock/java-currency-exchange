@@ -61,7 +61,7 @@ public class CurrenciesServlet extends HttpServlet {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_BAD_REQUEST, ERROR_MISSING_FIELDS_MESSAGE);
         }
         catch (AlreadyExistsException e) {
-            Response.sendErrorResponse(resp, HttpServletResponse.SC_BAD_REQUEST, String.format(ERROR_CURRENCY_EXISTS_MESSAGE, code));
+            Response.sendErrorResponse(resp, HttpServletResponse.SC_CONFLICT, String.format(ERROR_CURRENCY_EXISTS_MESSAGE, code));
         }
         catch (Exception e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ERROR_GENERIC_MESSAGE);

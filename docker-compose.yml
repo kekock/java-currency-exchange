@@ -10,7 +10,7 @@ services:
     volumes:
       - pg_currencyExchange:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "4650:5432"
 
   migration_db:
     image: flyway/flyway:latest

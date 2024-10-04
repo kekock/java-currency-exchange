@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
 
-    private static final String DATABASE_URL = "jdbc:postgresql://localhost:5432/currencyExchange";
+    private static final String DATABASE_URL = "jdbc:postgresql://localhost:4650/currencyExchange";
     private static final String DATABASE_USER = "admin";
     private static final String DATABASE_PASSWORD = "admin";
     private static final String DATABASE_DRIVER = "org.postgresql.Driver";

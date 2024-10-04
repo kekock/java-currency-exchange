@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS currencyExchange.Currencies(
     id serial PRIMARY KEY,
     code varchar(5) UNIQUE NOT NULL,
     full_name varchar(30) UNIQUE NOT NULL,
-    sign varchar(5) UNIQUE NOT NULL
+    sign varchar(5) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS currencyExchange.ExchangeRates(

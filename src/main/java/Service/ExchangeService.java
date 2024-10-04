@@ -29,12 +29,13 @@ public class ExchangeService {
         validateRequest(from, to, amount);
 
         BigDecimal amountValue = new BigDecimal(amount.replace(',','.'));
-        BigDecimal rate = getDirectRate(from, to);
-        BigDecimal convertedAmount = amountValue.multiply(rate).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal rate = getRate(from, to);
 
         if (rate == null) {
             throw new NotFoundException();
         }
+
+        BigDecimal convertedAmount = amountValue.multiply(rate).setScale(2, RoundingMode.HALF_UP);
 
         return new ExchangeResultDTO(
                 CurrenciesMapper.toDTO(currenciesRepository.findByCode(from)),
@@ -60,21 +61,21 @@ public class ExchangeService {
         }
     }
 
-    private BigDecimal getDirectRate(String from, String to) {
-        BigDecimal rate = getReverseRate(from, to);
+    private BigDecimal getRate(String from, String to) {
+        BigDecimal rate = getDirectRate(from, to);
 
         if (rate == null) {
-            rate = getRateThroughUSD(from, to);
+            rate = getReverseRate(from, to);
         }
 
         if (rate == null) {
-            rate = findRateThroughUsd(from, to);
+            rate = getRateThroughUsd(from, to);
         }
 
         return rate;
     }
 
-    private BigDecimal getReverseRate(String from, String to) {
+    private BigDecimal getDirectRate(String from, String to) {
         ExchangeRates exchangeRate = exchangeRatesRepository.findByCode(from+to);
         if (exchangeRate != null) {
             return exchangeRate.getRate();
@@ -84,7 +85,7 @@ public class ExchangeService {
         }
     }
 
-    private BigDecimal getRateThroughUSD(String from, String to) {
+    private BigDecimal getReverseRate(String from, String to) {
         ExchangeRates exchangeRate = exchangeRatesRepository.findByCode(to+from);
         if (exchangeRate != null) {
             return BigDecimal.ONE.divide(exchangeRate.getRate(), 2, RoundingMode.HALF_UP);
@@ -94,7 +95,7 @@ public class ExchangeService {
         }
     }
 
-    private BigDecimal findRateThroughUsd(String from, String to) {
+    private BigDecimal getRateThroughUsd(String from, String to) {
         String USD_CODE = "USD";
         ExchangeRates fromUsdExchangeRate = exchangeRatesRepository.findByCode(USD_CODE +from);
         ExchangeRates toUsdExchangeRate = exchangeRatesRepository.findByCode(USD_CODE +to);
