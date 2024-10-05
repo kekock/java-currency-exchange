@@ -74,6 +74,7 @@ $(document).ready(function() {
             type: "DELETE",
             success: function() {
                 requestCurrencies();
+                requestExchangeRates();
             },
             error: function(jqXHR) {
                 const error = JSON.parse(jqXHR.responseText);
@@ -100,18 +101,20 @@ $(document).ready(function() {
     });
 
     // Handle save changes for currency edit modal
-    $('#edit-currency-modal .btn-primary').click(function() {
+    $('#edit-currency-modal .btn-save').click(function() {
         const code = $('#edit-currency-code').val();
         const name = $('#edit-currency-name').val();
         const sign = $('#edit-currency-sign').val();
+
         $.ajax({
             url: `${host}/currencies/${code}`,
             type: "PATCH",
-            data: {
+            contentType: "application/json",
+            data: JSON.stringify({
                 code: code,
                 name: name,
                 sign: sign
-            },
+            }),
             success: function() {
                 requestCurrencies();
                 $('#edit-currency-modal').modal('hide');
