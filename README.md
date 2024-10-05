@@ -1,6 +1,6 @@
 # Currency Exchange REST API
 ## Overview
-#### This project implements a REST API for managing currencies and exchange rates, allowing users to view, add, update, and delete currencies, and calculate currency conversions.
+#### This project implements a REST API for managing currencies and exchange rates, allowing users to view, add, update, delete currencies, and calculate currency conversions.
 
 ## Project Motivation
 #### This project aims to:
