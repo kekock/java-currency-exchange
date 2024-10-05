@@ -75,7 +75,6 @@ public class ExchangeRatesServiceImpl implements CurrencyExchangeService<Exchang
                 rateValue);
 
         ExchangeRates addedExchangeRate = exchangeRatesRepository.save(newExchangeRate);
-        System.out.println(addedExchangeRate);
 
         return ExchangeRateResponseBuilder.assembleExchangeRateDTO(base, target, addedExchangeRate);
     }

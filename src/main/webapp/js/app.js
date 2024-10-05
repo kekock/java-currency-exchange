@@ -25,34 +25,49 @@ $(document).ready(function() {
                 const newRateBaseCurrency = $("#new-rate-base-currency");
                 newRateBaseCurrency.empty();
 
-                // populate the base currency select element with the list of currencies
                 $.each(data, function (index, currency) {
                     newRateBaseCurrency.append(`<option value="${currency.code}">${currency.code}</option>`);
+                });
+
+                newRateBaseCurrency.val("USD");
+
+                const targetCurrencyOptions = newRateBaseCurrency.find('option');
+                let selectedTargetCurrency = null;
+
+                targetCurrencyOptions.each(function (i) {
+                    if ($(this).val() === "USD" && i + 1 < targetCurrencyOptions.length) {
+                        selectedTargetCurrency = $(targetCurrencyOptions[i + 1]).val();
+                        return false;
+                    }
                 });
 
                 const newRateTargetCurrency = $("#new-rate-target-currency");
                 newRateTargetCurrency.empty();
 
-                // populate the target currency select element with the list of currencies
                 $.each(data, function (index, currency) {
                     newRateTargetCurrency.append(`<option value="${currency.code}">${currency.code}</option>`);
                 });
 
+                newRateTargetCurrency.val(selectedTargetCurrency);
+
                 const convertBaseCurrency = $("#convert-base-currency");
                 convertBaseCurrency.empty();
 
-                // populate the base currency select element with the list of currencies
                 $.each(data, function (index, currency) {
                     convertBaseCurrency.append(`<option value="${currency.code}">${currency.code}</option>`);
                 });
 
+                convertBaseCurrency.val("USD");
+
                 const convertTargetCurrency = $("#convert-target-currency");
                 convertTargetCurrency.empty();
 
-                // populate the base currency select element with the list of currencies
                 $.each(data, function (index, currency) {
                     convertTargetCurrency.append(`<option value="${currency.code}">${currency.code}</option>`);
                 });
+
+                convertTargetCurrency.val(selectedTargetCurrency);
+
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 const error = JSON.parse(jqXHR.responseText);
