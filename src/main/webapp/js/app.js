@@ -106,15 +106,16 @@ $(document).ready(function() {
         const name = $('#edit-currency-name').val();
         const sign = $('#edit-currency-sign').val();
 
+        const data = {
+            name: name,
+            sign: sign
+        };
+
         $.ajax({
             url: `${host}/currencies/${code}`,
             type: "PATCH",
-            contentType: "application/json",
-            data: JSON.stringify({
-                code: code,
-                name: name,
-                sign: sign
-            }),
+            data: $.param(data),
+            contentType: "application/x-www-form-urlencoded",
             success: function() {
                 requestCurrencies();
                 $('#edit-currency-modal').modal('hide');

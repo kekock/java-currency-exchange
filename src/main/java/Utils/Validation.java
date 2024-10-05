@@ -1,10 +1,9 @@
 package Utils;
 
-public class Validation {
+import java.util.Currency;
 
-    private static final String CURRENCY_CODE_REGEX = "^[A-Z]{3}$";
+public class Validation {
     private static final String NUMERIC_REGEX = "^[\\d]+([.,][\\d]+)?$";
-    private static final String EXCHANGE_RATE_CODE_REGEX = "^[A-Z]{6}$";
 
     public static boolean isNullOrEmpty(String input) {
         return input == null || input.isEmpty();
@@ -15,7 +14,15 @@ public class Validation {
     }
 
     public static boolean isValidCurrencyCode(String currencyCode) {
-        return !isNullOrEmpty(currencyCode) && currencyCode.matches(CURRENCY_CODE_REGEX);
+        if (isNullOrEmpty(currencyCode)) {
+            return false;
+        }
+        try {
+            Currency currency = Currency.getInstance(currencyCode);
+            return currency.getCurrencyCode().equals(currencyCode);
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 
     public static boolean isValidCurrencyPath(String pathInfo) {
@@ -33,7 +40,9 @@ public class Validation {
     }
 
     public static boolean isValidPairCode(String exchangeRateCode) {
-        return !isNullOrEmpty(exchangeRateCode) && exchangeRateCode.matches(EXCHANGE_RATE_CODE_REGEX);
+        return !isNullOrEmpty(exchangeRateCode)
+                && isValidCurrencyCode(exchangeRateCode.substring(0,3))
+                && isValidCurrencyCode(exchangeRateCode.substring(3));
     }
 
     public static boolean isValidPairPath(String pathInfo) {

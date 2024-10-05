@@ -1,17 +1,17 @@
 # Currency Exchange REST API
 ## Overview
-#### This project implements a REST API for managing currencies and exchange rates, allowing you to view, add, update, delete currencies, and calculate currency conversions.
+#### This project implements a REST API for managing currencies and exchange rates, allowing users to view, add, update, and delete currencies, and calculate currency conversions.
 
 ## Project Motivation
 #### This project aims to:
-- **Teach MVC architecture**
+- **Demonstrate the principles of MVC architecture**
 - **Demonstrate best practices for REST API design** (correct resource naming and HTTP response code usage)
 - **Cover basic SQL syntax and table creation**
 
 ## Key Features
 - **Manage Currencies**: Add, update, delete currencies, and view a list of all available currencies.
 - **Manage Exchange Rates**: Add, update, delete exchange rates, and retrieve existing ones.
-- **Currency Conversion**: Calculate conversion amounts from one currency to another based on the current exchange rate.
+- **Calculate Currency Conversion**: Calculate conversion amounts from one currency to another based on the current exchange rate.
 
 ## Technologies Used
 - **Java**: Core language for development.
@@ -22,13 +22,15 @@
 - **Docker & Docker Compose**: For containerized deployment.
 - **Tomcat 10+**: Local server for running the application.
 - **Lombok**: Reduces boilerplate code by auto-generating getters, setters, and other common methods.
+- **Object Mapper**: For JSON response formatting.
+- **HTML, CSS, JS**: For the test front-end.
 
 ## Local Deployment
 1. **Clone the repository:**
 ```bash
 git clone https://github.com/kekock/java-currency-exchange.git
 ```
-2. **Open the project in IDEA.**
+2. **Open the project in IntelliJ IDEA.**
 3. **Configure Tomcat:**
    - In IDEA, go to Run > Edit Configurations.
    - Add a new Tomcat configuration.
@@ -50,7 +52,7 @@ http://localhost:8080/
 
 ## Database
 
-#### The database schema for this project uses PostgreSQL and is managed with Flyway. The schema contains two main tables: `Currencies` and `ExchangeRates`.
+#### This project's database schema uses PostgreSQL and is managed using Flyway. The schema contains two main tables: `Currencies` and `ExchangeRates`.
 
 ### Tables
 
@@ -437,10 +439,10 @@ Let's assume we're converting from currency A to currency B:
 
 - If the currency pair AB exists in the ExchangeRates table, we take its rate.
 - If the currency pair BA exists in the ExchangeRates table, we take its rate and calculate the inverse to obtain the AB rate.
-- If currency pairs USD-A and USD-B exist in the ExchangeRates table, we compute the AB rate from these rates.
+- If currency pairs USD-A and USD-B exist in the ExchangeRates table, we compute the AB rate based on these rates.
 
 ### Error Hangings
-For all requests, in case of an error, the response look like this:
+For all requests, in case of an error, the response will look like this:
 
 ```json
 {
