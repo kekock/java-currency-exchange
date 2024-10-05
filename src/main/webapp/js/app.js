@@ -250,9 +250,9 @@ $(document).ready(function() {
         return false;
     });
 
-    // Convert currency form submission
     $("#convert").submit(function(e) {
         e.preventDefault();
+
         const baseCurrency = $("#convert-base-currency").val();
         const targetCurrency = $("#convert-target-currency").val();
         const amount = $("#convert-amount").val();
@@ -260,17 +260,19 @@ $(document).ready(function() {
         $.ajax({
             url: `${host}/exchange?from=${baseCurrency}&to=${targetCurrency}&amount=${amount}`,
             type: "GET",
-            dataType: "json",
-            success: function(response) {
-                const convertedAmount = response.convertedAmount;
-                $("#convert-result").text(`${amount} ${baseCurrency} = ${convertedAmount} ${targetCurrency}`);
+            // data: "$("#add-exchange-rate").serialize()",
+            success: function(data) {
+                $("#convert-converted-amount").val(data.convertedAmount);
             },
-            error: function(jqXHR) {
+            error: function(jqXHR, textStatus, errorThrown) {
                 const error = JSON.parse(jqXHR.responseText);
                 const toast = $('#api-error-toast');
+
                 $(toast).find('.toast-body').text(error.message);
                 toast.toast("show");
             }
         });
+
+        return false;
     });
 });

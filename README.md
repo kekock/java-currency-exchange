@@ -37,6 +37,7 @@ git clone https://github.com/kekock/java-currency-exchange.git
    - Set the deployment option to use WAR exploded artifact.
    - Ensure that the application is set to run on localhost:8080.
 4. **Set up Docker Compose:**
+   > _**Note:** Ensure you have Docker installed on your device._
    - In IDEA, navigate to the Docker tab and start your Docker containers.
    - Alternatively, you can run the following command in your terminal:
 ```bash
@@ -195,6 +196,8 @@ key: sign, value: ₮
 - 500: Internal Server Error – Database connection failed.
 
 ### DELETE /currencies/{code}
+> _**Note**: If a user deletes the currency with {code}, then all exchange rates that have it as either the base or target currency will be deleted as well._
+
 **Description**: Delete a currency from the system by its code.
 
 **Example Request**:
