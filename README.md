@@ -13,7 +13,7 @@
 - **Manage Exchange Rates**: Add, update, delete exchange rates, and retrieve existing ones.
 - **Currency Conversion**: Calculate conversion amounts from one currency to another based on the current exchange rate.
 
-## Technologies Used:
+## Technologies Used
 - **Java**: Core language for development.
 - **Maven**: Dependency management and build tool.
 - **Jakarta Servlet API (6.1.0)**: For handling HTTP requests.
@@ -30,20 +30,20 @@ git clone https://github.com/kekock/java-currency-exchange.git
 ```
 2. **Open the project in IDEA.**
 3. **Configure Tomcat:**
-- In IDEA, go to Run > Edit Configurations.
-- Add a new Tomcat configuration.
-- Set the deployment option to use WAR exploded artifact.
-- Ensure that the application is set to run on localhost:8080.
+   - In IDEA, go to Run > Edit Configurations.
+   - Add a new Tomcat configuration.
+   - Set the deployment option to use WAR exploded artifact.
+   - Ensure that the application is set to run on localhost:8080.
 4. **Set up Docker Compose:**
-- In IDEA, navigate to the Docker tab and start your Docker containers.
-- Alternatively, you can run the following command in your terminal:
+   - In IDEA, navigate to the Docker tab and start your Docker containers.
+   - Alternatively, you can run the following command in your terminal:
 ```bash
 docker-compose up
 ```
 5. **Run the project:**
-- Start Tomcat from IDEA by running the configured Tomcat server.
+   - Start Tomcat from IDEA by running the configured Tomcat server.
 6. **Access the API:**
-- Once Tomcat is up and running, the API will be available at:
+   - Once Tomcat is up and running, the API will be available at:
 ```bash
 http://localhost:8080/
 ```
@@ -392,7 +392,7 @@ Status: 204 No Content
 - 404: Not Found – Exchange rate not found.
 - 500: Internal Server Error – Database connection failed.
 
-### GET /exchange
+### GET /exchange?from={base-code}&to={target-code}&amount={amount}
 **Description**: Convert an amount of money from one currency to another.
 
 Request Parameters:
