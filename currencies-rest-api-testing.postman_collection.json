@@ -1,0 +1,340 @@
+{
+	"info": {
+		"_postman_id": "2daeef16-7eab-4ab5-9473-95b62f66c563",
+		"name": "currencies-rest-api-testing",
+		"description": "# **Currencies REST API Testing Collection**\n\nThis Postman collection, **currencies-rest-api-testing**, is designed for testing a REST API for managing currencies and exchange rates. It includes various endpoints that allow users to perform CRUD operations on currencies and exchange rates, as well as calculate currency conversions.\n\n## Collection Structure\n\nThe collection is divided into three folders:\n\n1. **Currencies**\n    \n2. **ExchangeRates**\n    \n3. **Exchange**",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34795788"
+	},
+	"item": [
+		{
+			"name": "сurrencies",
+			"item": [
+				{
+					"name": "http://localhost:8080/currencies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/currencies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"currencies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/currencies/USD",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/currencies/USD",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"currencies",
+								"USD"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/currencies",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Brazilian Real",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "BRL",
+									"type": "text"
+								},
+								{
+									"key": "sign",
+									"value": "R$",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/currencies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"currencies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/currencies/USD",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "USDT",
+									"type": "text"
+								},
+								{
+									"key": "sign",
+									"value": "₮",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/currencies/USD",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"currencies",
+								"USD"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/currencies/BRL",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/currencies/BRL",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"currencies",
+								"BRL"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "### This folder contains requests to manage currencies in the system. It includes methods for retrieving, adding, updating, and deleting currencies.\n\n#### GET `/currencies`\n\nRetrieve a list of all available currencies.\n\n**Example Request:**\n\n``` bash\nGET http://localhost:8080/currencies\n\n ```\n\n**Example Response:**\n\n``` json\n[\n    {\n        \"id\": 1,\n        \"name\": \"US Dollar\",\n        \"code\": \"USD\",\n        \"sign\": \"$\"\n    },\n    ...\n]\n\n ```\n\n#### GET `/currencies/{code}`\n\nRetrieve details of a specific currency by its code.\n\n**Example Request:**\n\n``` bash\nGET http://localhost:8080/currencies/USD\n\n ```\n\n**Example Response:**\n\n``` json\n{\n    \"id\": 1,\n    \"name\": \"US Dollar\",\n    \"code\": \"USD\",\n    \"sign\": \"$\"\n}\n\n ```\n\n#### POST `/currencies`\n\nAdd a new currency to the system.\n\n**Example Request:**\n\n``` bash\nPOST http://localhost:8080/currencies\n\n ```\n\n**Body (x-www-form-urlencoded):**\n\n- `key`: name, `value`: Brazilian Real\n    \n- `key`: code, `value`: BRL\n    \n- `key`: sign, `value`: R$\n    \n\n**Example Response:**\n\n``` json\n{\n    \"id\": 7,\n    \"name\": \"Brazilian Real\",\n    \"code\": \"BRL\",\n    \"sign\": \"R$\"\n}\n\n ```\n\n#### PATCH `/currencies/{code}`\n\nUpdate the details of a currency by its code.\n\n**Example Request:**\n\n``` bash\nPATCH http://localhost:8080/currencies/USD\n\n ```\n\n**Body (x-www-form-urlencoded):**\n\n- `key`: name, `value`: USDT\n    \n- `key`: sign, `value`: ₮\n    \n\n**Example Response:**\n\n``` json\n{\n    \"id\": 1,\n    \"name\": \"USDT\",\n    \"code\": \"USD\",\n    \"sign\": \"₮\"\n}\n\n ```\n\n#### DELETE `/currencies/{code}`\n\nDelete a currency by its code.\n\n**Example Request:**\n\n``` bash\nDELETE http://localhost:8080/currencies/BRL\n\n ```\n\n**Response:**\n\n- Status: `204 No Content`\n    \n\n### Error Responses\n\nErrors are returned in the following format:\n\n``` json\n{\n    \"statusCode\": 400,\n    \"message\": \"Currency with code 'BRL' already exists.\"\n}\n\n ```"
+		},
+		{
+			"name": "exchangeRates",
+			"item": [
+				{
+					"name": "http://localhost:8080/exchangeRates",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/exchangeRates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"exchangeRates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/exchangeRate/USDHUF",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/exchangeRate/USDHUF",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"exchangeRate",
+								"USDHUF"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/exchangeRates",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "baseCurrencyCode",
+									"value": "USD",
+									"type": "text"
+								},
+								{
+									"key": "targetCurrencyCode",
+									"value": "BRL",
+									"type": "text"
+								},
+								{
+									"key": "rate",
+									"value": "5.42",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/exchangeRates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"exchangeRates"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/exchangeRate/USDBRL",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "rate",
+									"value": "5.32",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/exchangeRate/USDBRL",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"exchangeRate",
+								"USDBRL"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/exchangeRate/USDBRT",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/exchangeRate/USDBRL",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"exchangeRate",
+								"USDBRL"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "### This folder contains requests for managing exchange rates between currencies.\n\n#### GET `/exchangeRates`\n\nRetrieve a list of all exchange rates.\n\n**Example Request:**\n\n``` bash\nGET http://localhost:8080/exchangeRates\n\n ```\n\n**Example Response:**\n\n``` json\n[\n    {\n        \"id\": 1,\n        \"baseCurrency\": {\n            \"id\": 1,\n            \"name\": \"US Dollar\",\n            \"code\": \"USD\",\n            \"sign\": \"$\"\n        },\n        \"targetCurrency\": {\n            \"id\": 2,\n            \"name\": \"Euro\",\n            \"code\": \"EUR\",\n            \"sign\": \"€\"\n        },\n        \"rate\": 0.92\n    },\n    ...\n]\n\n ```\n\n#### GET `/exchangeRate/{pair-code}`\n\nRetrieve the exchange rate for a specific currency pair.\n\n**Example Request:**\n\n``` bash\nGET http://localhost:8080/exchangeRate/USDHUF\n\n ```\n\n**Example Response:**\n\n``` json\n{\n    \"id\": 4,\n    \"baseCurrency\": {\n        \"id\": 1,\n        \"name\": \"US Dollar\",\n        \"code\": \"USD\",\n        \"sign\": \"$\"\n    },\n    \"targetCurrency\": {\n        \"id\": 5,\n        \"name\": \"Forint\",\n        \"code\": \"HUF\",\n        \"sign\": \"Ft\"\n    },\n    \"rate\": 365.05\n}\n\n ```\n\n#### POST `/exchangeRates`\n\nAdd a new exchange rate between two currencies.\n\n**Example Request:**\n\n``` bash\nPOST http://localhost:8080/exchangeRates\n\n ```\n\n**Body (x-www-form-urlencoded):**\n\n- `key`: baseCurrencyCode, `value`: USD\n    \n- `key`: targetCurrencyCode, `value`: BRL\n    \n- `key`: rate, `value`: 5.42\n    \n\n**Example Response:**\n\n``` json\n{\n    \"id\": 7,\n    \"baseCurrency\": {\n        \"id\": 1,\n        \"name\": \"US Dollar\",\n        \"code\": \"USD\",\n        \"sign\": \"$\"\n    },\n    \"targetCurrency\": {\n        \"id\": 7,\n        \"name\": \"Brazilian Real\",\n        \"code\": \"BRL\",\n        \"sign\": \"R$\"\n    },\n    \"rate\": 5.42\n}\n\n ```\n\n#### PATCH `/exchangeRate/{pair-code}`\n\nUpdate the exchange rate for a specific currency pair.\n\n**Example Request:**\n\n``` bash\nPATCH http://localhost:8080/exchangeRate/USDBRL\n\n ```\n\n**Body (x-www-form-urlencoded):**\n\n- `key`: rate, `value`: 5.32\n    \n\n**Example Response:**\n\n``` json\n{\n    \"id\": 7,\n    \"baseCurrency\": {\n        \"id\": 1,\n        \"name\": \"US Dollar\",\n        \"code\": \"USD\",\n        \"sign\": \"$\"\n    },\n    \"targetCurrency\": {\n        \"id\": 7,\n        \"name\": \"Brazilian Real\",\n        \"code\": \"BRL\",\n        \"sign\": \"R$\"\n    },\n    \"rate\": 5.32\n}\n\n ```\n\n#### DELETE `/exchangeRate/{pair-code}`\n\nDelete an exchange rate for a specific currency pair.\n\n**Example Request:**\n\n``` bash\nDELETE http://localhost:8080/exchangeRate/USDBRL\n\n ```\n\n**Response:**\n\n- Status: `204 No Content`\n    \n\n### Error Responses\n\nErrors are returned in the following format:\n\n``` json\n{\n    \"statusCode\": 400,\n    \"message\": \"No changes to apply\"\n}\n\n ```"
+		},
+		{
+			"name": "exchange",
+			"item": [
+				{
+					"name": "http://localhost:8080/exchange?from=EUR&to=BRL&amount=10",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/exchange?from=BRL&to=EUR&amount=450",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"exchange"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "BRL"
+								},
+								{
+									"key": "to",
+									"value": "EUR"
+								},
+								{
+									"key": "amount",
+									"value": "450"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "### This folder contains the only request for converting an amount from one currency to another.\n\n#### GET `/exchange`\n\nConvert an amount of money from one currency to another.\n\n**Example Request:**\n\n``` bash\nGET http://localhost:8080/exchange?from=BRL&to=EUR&amount=450\n\n ```\n\n**Example Response:**\n\n``` json\n{\n    \"baseCurrency\": {\n        \"id\": 10,\n        \"name\": \"Brazilian Real\",\n        \"code\": \"BRL\",\n        \"sign\": \"R$\"\n    },\n    \"targetCurrency\": {\n        \"id\": 2,\n        \"name\": \"Euro\",\n        \"code\": \"EUR\",\n        \"sign\": \"€\"\n    },\n    \"rate\": 0.17,\n    \"amount\": 450,\n    \"convertedAmount\": 76.50\n}\n\n ```\n\nParameters:\n\n- `from`: Base currency code\n    \n- `to`: Target currency code\n    \n- `amount`: The amount to be converted\n    \n\n### Error Responses\n\nErrors are returned in the following format:\n\n``` json\n{\n    \"statusCode\": 400,\n    \"message\": \"Invalid or missing required form fields.\"\n}\n\n ```"
+		}
+	]
+}
