@@ -1,0 +1,25 @@
+services:
+  currencyExchange_db:
+    image: postgres:latest
+    container_name: currencyExchange_db
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: currencyExchange
+    volumes:
+      - pg_currencyExchange:/var/lib/postgresql/data
+    ports:
+      - "4650:5432"
+
+  migration_db:
+    image: flyway/flyway:latest
+    container_name: migration_db
+    depends_on:
+    - currencyExchange_db
+    volumes:
+      - ./src/main/resources/db.migration/:/flyway/sql
+    command: -url=jdbc:postgresql://currencyExchange_db:5432/currencyExchange -user=admin -password=admin migrate
+
+volumes:
+  pg_currencyExchange:
