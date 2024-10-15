@@ -41,7 +41,7 @@ public class Validation {
     }
 
     public static boolean isValidPairCode(String exchangeRateCode) {
-        if (isNullOrEmpty(exchangeRateCode)){
+        if (isNullOrEmpty(exchangeRateCode)) {
             return false;
         }
         String baseCurrency = exchangeRateCode.substring(0, 3);

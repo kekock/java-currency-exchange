@@ -37,8 +37,7 @@ public class CurrenciesServlet extends HttpServlet {
         try {
             List<CurrenciesDTO> currenciesList = service.findAll();
             Response.sendJsonResponse(resp, currenciesList);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ERROR_GENERIC_MESSAGE);
         }
     }
@@ -56,14 +55,11 @@ public class CurrenciesServlet extends HttpServlet {
             resp.setStatus(HttpServletResponse.SC_CREATED);
 
             Response.sendJsonResponse(resp, currency);
-        }
-        catch (MissingFormFieldsException e) {
+        } catch (MissingFormFieldsException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_BAD_REQUEST, ERROR_MISSING_FIELDS_MESSAGE);
-        }
-        catch (AlreadyExistsException e) {
+        } catch (AlreadyExistsException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_CONFLICT, String.format(ERROR_CURRENCY_EXISTS_MESSAGE, code));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ERROR_GENERIC_MESSAGE);
         }
     }

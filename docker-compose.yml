@@ -16,7 +16,7 @@ services:
     image: flyway/flyway:latest
     container_name: migration_db
     depends_on:
-    - currencyExchange_db
+      - currencyExchange_db
     volumes:
       - ./src/main/resources/db.migration/:/flyway/sql
     command: -url=jdbc:postgresql://currencyExchange_db:5432/currencyExchange -user=admin -password=admin migrate

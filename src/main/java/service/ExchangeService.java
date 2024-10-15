@@ -28,7 +28,7 @@ public class ExchangeService {
 
         validateRequest(from, to, amount);
 
-        BigDecimal amountValue = new BigDecimal(amount.replace(',','.'));
+        BigDecimal amountValue = new BigDecimal(amount.replace(',', '.'));
         BigDecimal rate = getRate(from, to);
 
         System.out.println(rate);
@@ -78,34 +78,31 @@ public class ExchangeService {
     }
 
     private BigDecimal getDirectRate(String from, String to) {
-        ExchangeRates exchangeRate = exchangeRatesRepository.findByCode(from+to);
+        ExchangeRates exchangeRate = exchangeRatesRepository.findByCode(from + to);
         if (exchangeRate != null) {
             return exchangeRate.getRate();
-        }
-        else{
+        } else {
             return null;
         }
     }
 
     private BigDecimal getReverseRate(String from, String to) {
-        ExchangeRates exchangeRate = exchangeRatesRepository.findByCode(to+from);
+        ExchangeRates exchangeRate = exchangeRatesRepository.findByCode(to + from);
         if (exchangeRate != null) {
             return BigDecimal.ONE.divide(exchangeRate.getRate(), 4, RoundingMode.HALF_UP);
-        }
-        else {
+        } else {
             return null;
         }
     }
 
     private BigDecimal getRateThroughUsd(String from, String to) {
         String USD_CODE = "USD";
-        ExchangeRates fromUsdExchangeRate = exchangeRatesRepository.findByCode(USD_CODE +from);
-        ExchangeRates toUsdExchangeRate = exchangeRatesRepository.findByCode(USD_CODE +to);
+        ExchangeRates fromUsdExchangeRate = exchangeRatesRepository.findByCode(USD_CODE + from);
+        ExchangeRates toUsdExchangeRate = exchangeRatesRepository.findByCode(USD_CODE + to);
 
         if (fromUsdExchangeRate != null && toUsdExchangeRate != null) {
             return toUsdExchangeRate.getRate().divide(fromUsdExchangeRate.getRate(), 4, RoundingMode.HALF_UP);
-        }
-        else{
+        } else {
             return null;
         }
     }

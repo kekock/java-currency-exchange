@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     const host = "http://localhost:8080"
 
     function requestCurrencies() {
@@ -9,7 +9,7 @@ $(document).ready(function() {
             success: function (data) {
                 const tbody = $('.currencies-table tbody');
                 tbody.empty();
-                $.each(data, function(index, currency) {
+                $.each(data, function (index, currency) {
                     const row = $('<tr></tr>');
                     row.append($('<td></td>').text(currency.code));
                     row.append($('<td></td>').text(currency.name));
@@ -80,16 +80,16 @@ $(document).ready(function() {
 
     requestCurrencies();
 
-    $(document).on('click', '.currency-delete', function() {
+    $(document).on('click', '.currency-delete', function () {
         const code = $(this).data('code');
         $.ajax({
             url: `${host}/currencies/${code}`,
             type: "DELETE",
-            success: function() {
+            success: function () {
                 requestCurrencies();
                 requestExchangeRates();
             },
-            error: function(jqXHR) {
+            error: function (jqXHR) {
                 const error = JSON.parse(jqXHR.responseText);
                 const toast = $('#api-error-toast');
                 $(toast).find('.toast-body').text(error.message);
@@ -98,12 +98,12 @@ $(document).ready(function() {
         });
     });
 
-    $(document).on('click', '.currency-edit', function() {
+    $(document).on('click', '.currency-edit', function () {
         const code = $(this).data('code');
         $.ajax({
             url: `${host}/currencies/${code}`,
             type: "GET",
-            success: function(currency) {
+            success: function (currency) {
                 $('#edit-currency-code').val(currency.code);
                 $('#edit-currency-name').val(currency.name);
                 $('#edit-currency-sign').val(currency.sign);
@@ -111,7 +111,7 @@ $(document).ready(function() {
         });
     });
 
-    $('#edit-currency-modal .btn-save').click(function() {
+    $('#edit-currency-modal .btn-save').click(function () {
         const code = $('#edit-currency-code').val();
         const name = $('#edit-currency-name').val();
         const sign = $('#edit-currency-sign').val();
@@ -126,11 +126,11 @@ $(document).ready(function() {
             type: "PATCH",
             data: $.param(data),
             contentType: "application/x-www-form-urlencoded",
-            success: function() {
+            success: function () {
                 requestCurrencies();
                 $('#edit-currency-modal').modal('hide');
             },
-            error: function(jqXHR) {
+            error: function (jqXHR) {
                 const error = JSON.parse(jqXHR.responseText);
                 const toast = $('#api-error-toast');
                 $(toast).find('.toast-body').text(error.message);
@@ -144,10 +144,10 @@ $(document).ready(function() {
             url: `${host}/exchangeRates`,
             type: "GET",
             dataType: "json",
-            success: function(response) {
+            success: function (response) {
                 const tbody = $('.exchange-rates-table tbody');
                 tbody.empty();
-                $.each(response, function(index, rate) {
+                $.each(response, function (index, rate) {
                     const row = $('<tr></tr>');
                     const currency = rate.baseCurrency.code + rate.targetCurrency.code;
                     const exchangeRate = rate.rate;
@@ -160,7 +160,7 @@ $(document).ready(function() {
                     tbody.append(row);
                 });
             },
-            error: function() {
+            error: function () {
                 const error = JSON.parse(jqXHR.responseText);
                 const toast = $('#api-error-toast');
 
@@ -172,15 +172,15 @@ $(document).ready(function() {
 
     requestExchangeRates();
 
-    $(document).on('click', '.exchange-rate-delete', function() {
+    $(document).on('click', '.exchange-rate-delete', function () {
         const pair = $(this).data('pair');
         $.ajax({
             url: `${host}/exchangeRate/${pair}`,
             type: "DELETE",
-            success: function() {
+            success: function () {
                 requestExchangeRates();
             },
-            error: function(jqXHR) {
+            error: function (jqXHR) {
                 const error = JSON.parse(jqXHR.responseText);
                 const toast = $('#api-error-toast');
                 $(toast).find('.toast-body').text(error.message);
@@ -189,25 +189,25 @@ $(document).ready(function() {
         });
     });
 
-    $(document).delegate('.exchange-rate-edit', 'click', function() {
+    $(document).delegate('.exchange-rate-edit', 'click', function () {
         const pair = $(this).closest('tr').find('td:first').text();
         const exchangeRate = $(this).closest('tr').find('td:eq(1)').text();
         $('#edit-exchange-rate-modal .modal-title').text(`Edit ${pair} Exchange Rate`);
         $('#edit-exchange-rate-modal #exchange-rate-input').val(exchangeRate);
     });
 
-    $('#edit-exchange-rate-modal .btn-primary').click(function() {
+    $('#edit-exchange-rate-modal .btn-primary').click(function () {
         const pair = $('#edit-exchange-rate-modal .modal-title').text().replace('Edit ', '').replace(' Exchange Rate', '');
         const exchangeRate = $('#edit-exchange-rate-modal #exchange-rate-input').val();
         $.ajax({
             url: `${host}/exchangeRate/${pair}`,
             type: "PATCH",
-            data: { rate: exchangeRate },
-            success: function() {
+            data: {rate: exchangeRate},
+            success: function () {
                 requestExchangeRates();
                 $('#edit-exchange-rate-modal').modal('hide');
             },
-            error: function(jqXHR) {
+            error: function (jqXHR) {
                 const error = JSON.parse(jqXHR.responseText);
                 const toast = $('#api-error-toast');
                 $(toast).find('.toast-body').text(error.message);
@@ -216,16 +216,16 @@ $(document).ready(function() {
         });
     });
 
-    $("#add-currency").submit(function(e) {
+    $("#add-currency").submit(function (e) {
         e.preventDefault();
         $.ajax({
             url: `${host}/currencies`,
             type: "POST",
             data: $("#add-currency").serialize(),
-            success: function(data) {
+            success: function (data) {
                 requestCurrencies();
             },
-            error: function(jqXHR) {
+            error: function (jqXHR) {
                 const error = JSON.parse(jqXHR.responseText);
                 const toast = $('#api-error-toast');
                 $(toast).find('.toast-body').text(error.message);
@@ -235,16 +235,16 @@ $(document).ready(function() {
         return false;
     });
 
-    $("#add-exchange-rate").submit(function(e) {
+    $("#add-exchange-rate").submit(function (e) {
         e.preventDefault();
         $.ajax({
             url: `${host}/exchangeRates`,
             type: "POST",
             data: $("#add-exchange-rate").serialize(),
-            success: function(data) {
+            success: function (data) {
                 requestExchangeRates();
             },
-            error: function(jqXHR) {
+            error: function (jqXHR) {
                 const error = JSON.parse(jqXHR.responseText);
                 const toast = $('#api-error-toast');
                 $(toast).find('.toast-body').text(error.message);
@@ -254,7 +254,7 @@ $(document).ready(function() {
         return false;
     });
 
-    $("#convert").submit(function(e) {
+    $("#convert").submit(function (e) {
         e.preventDefault();
 
         const baseCurrency = $("#convert-base-currency").val();
@@ -264,10 +264,10 @@ $(document).ready(function() {
         $.ajax({
             url: `${host}/exchange?from=${baseCurrency}&to=${targetCurrency}&amount=${amount}`,
             type: "GET",
-            success: function(data) {
+            success: function (data) {
                 $("#convert-converted-amount").val(data.convertedAmount);
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 const error = JSON.parse(jqXHR.responseText);
                 const toast = $('#api-error-toast');
 

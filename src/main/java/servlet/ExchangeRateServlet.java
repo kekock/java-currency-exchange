@@ -41,14 +41,11 @@ public class ExchangeRateServlet extends HttpServlet {
         try {
             ExchangeRatesDTO exchangeRate = service.findByCode(pathInfo);
             Response.sendJsonResponse(resp, exchangeRate);
-        }
-        catch (InvalidCodeException e) {
+        } catch (InvalidCodeException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_BAD_REQUEST, ERROR_INVALID_PAIR_CODE_MESSAGE);
-        }
-        catch (NotFoundException e) {
+        } catch (NotFoundException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_NOT_FOUND, ERROR_PAIR_NOT_FOUND_MESSAGE);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ERROR_GENERIC_MESSAGE);
         }
     }
@@ -60,14 +57,11 @@ public class ExchangeRateServlet extends HttpServlet {
         try {
             service.delete(pathInfo);
             resp.sendError(HttpServletResponse.SC_NO_CONTENT);
-        }
-        catch (InvalidCodeException e) {
+        } catch (InvalidCodeException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_BAD_REQUEST, ERROR_INVALID_PAIR_CODE_MESSAGE);
-        }
-        catch (NotFoundException e) {
+        } catch (NotFoundException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_NOT_FOUND, ERROR_PAIR_NOT_FOUND_MESSAGE);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ERROR_GENERIC_MESSAGE);
         }
     }
@@ -87,7 +81,7 @@ public class ExchangeRateServlet extends HttpServlet {
     protected void doPatch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String pathInfo = req.getPathInfo();
 
-        if (!Validation.isValidPairPath(pathInfo)){
+        if (!Validation.isValidPairPath(pathInfo)) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, ERROR_INVALID_PAIR_CODE_MESSAGE);
             return;
         }
@@ -101,17 +95,13 @@ public class ExchangeRateServlet extends HttpServlet {
         try {
             ExchangeRatesDTO exchangeRate = service.update(base, target, rate);
             Response.sendJsonResponse(resp, exchangeRate);
-        }
-        catch (MissingFormFieldsException e) {
+        } catch (MissingFormFieldsException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_BAD_REQUEST, ERROR_MISSING_FIELDS_MESSAGE);
-        }
-        catch (NotFoundException e) {
+        } catch (NotFoundException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_NOT_FOUND, ERROR_PAIR_NOT_FOUND_MESSAGE);
-        }
-        catch (NotModifiedException e) {
+        } catch (NotModifiedException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_BAD_REQUEST, ERROR_NOT_MODIFIED_MESSAGE);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ERROR_GENERIC_MESSAGE);
         }
     }

@@ -34,14 +34,14 @@ public class ExchangeRatesServiceImpl implements CurrencyExchangeService<Exchang
 
     @Override
     public ExchangeRatesDTO findByCode(String pathInfo) {
-        if (!Validation.isValidPairPath(pathInfo)){
+        if (!Validation.isValidPairPath(pathInfo)) {
             throw new InvalidCodeException();
         }
 
         String pair = Validation.extractPairCode(pathInfo);
         ExchangeRates exchangeRate = exchangeRatesRepository.findByCode(pair);
 
-        if (exchangeRate == null){
+        if (exchangeRate == null) {
             throw new NotFoundException();
         }
 
@@ -51,24 +51,24 @@ public class ExchangeRatesServiceImpl implements CurrencyExchangeService<Exchang
 
     @Override
     public ExchangeRatesDTO save(String base, String target, String rate) {
-        if (!Validation.areValidExchangeRateFormFields(base, target, rate)){
+        if (!Validation.areValidExchangeRateFormFields(base, target, rate)) {
             throw new MissingFormFieldsException();
         }
 
-        if (base.equals(target)){
+        if (base.equals(target)) {
             throw new SameCodeException();
         }
 
-        if (exchangeRatesRepository.findByCode(base+target) != null){
+        if (exchangeRatesRepository.findByCode(base + target) != null) {
             throw new AlreadyExistsException();
         }
 
         if (currenciesRepository.findByCode(base) == null
-                || currenciesRepository.findByCode(target) == null){
+                || currenciesRepository.findByCode(target) == null) {
             throw new NotFoundException();
         }
 
-        BigDecimal rateValue = new BigDecimal(rate.replace(',','.'));
+        BigDecimal rateValue = new BigDecimal(rate.replace(',', '.'));
         ExchangeRates newExchangeRate = new ExchangeRates(0,
                 CurrencyIdExtractor.getCurrencyIdByCode(base),
                 CurrencyIdExtractor.getCurrencyIdByCode(target),
@@ -81,13 +81,13 @@ public class ExchangeRatesServiceImpl implements CurrencyExchangeService<Exchang
 
     @Override
     public void delete(String pathInfo) {
-        if (!Validation.isValidPairPath(pathInfo)){
+        if (!Validation.isValidPairPath(pathInfo)) {
             throw new InvalidCodeException();
         }
 
         String exchangeCode = Validation.extractPairCode(pathInfo);
 
-        if (exchangeRatesRepository.findByCode(exchangeCode) == null){
+        if (exchangeRatesRepository.findByCode(exchangeCode) == null) {
             throw new NotFoundException();
         }
 
@@ -97,18 +97,18 @@ public class ExchangeRatesServiceImpl implements CurrencyExchangeService<Exchang
     @Override
     public ExchangeRatesDTO update(String base, String target, String rate) {
 
-        if (!Validation.areValidExchangeRateFormFields(base, target, rate)){
+        if (!Validation.areValidExchangeRateFormFields(base, target, rate)) {
             throw new MissingFormFieldsException();
         }
 
-        BigDecimal rateValue = new BigDecimal(rate.replace(',','.'));
-        ExchangeRates existingExchangeRate = exchangeRatesRepository.findByCode(base+target);
+        BigDecimal rateValue = new BigDecimal(rate.replace(',', '.'));
+        ExchangeRates existingExchangeRate = exchangeRatesRepository.findByCode(base + target);
 
-        if (existingExchangeRate == null){
+        if (existingExchangeRate == null) {
             throw new NotFoundException();
         }
 
-        if (rateValue.equals(existingExchangeRate.getRate())){
+        if (rateValue.equals(existingExchangeRate.getRate())) {
             throw new NotModifiedException();
         }
         existingExchangeRate.setRate(rateValue);

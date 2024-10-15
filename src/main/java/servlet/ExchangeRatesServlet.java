@@ -32,7 +32,7 @@ public class ExchangeRatesServlet extends HttpServlet {
     private ExchangeRatesServiceImpl service;
 
     @Override
-    public void init(){
+    public void init() {
         this.service = new ExchangeRatesServiceImpl();
     }
 
@@ -41,8 +41,7 @@ public class ExchangeRatesServlet extends HttpServlet {
         try {
             List<ExchangeRatesDTO> exchangeRatesList = service.findAll();
             Response.sendJsonResponse(resp, exchangeRatesList);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ERROR_GENERIC_MESSAGE);
         }
     }
@@ -59,22 +58,17 @@ public class ExchangeRatesServlet extends HttpServlet {
             ExchangeRatesDTO exchangeRate = service.save(baseCurrencyCode, targetCurrencyCode, rate);
             resp.setStatus(HttpServletResponse.SC_CREATED);
             Response.sendJsonResponse(resp, exchangeRate);
-        }
-        catch (MissingFormFieldsException e) {
+        } catch (MissingFormFieldsException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_BAD_REQUEST, ERROR_MISSING_FIELDS_MESSAGE);
-        }
-        catch (SameCodeException e) {
+        } catch (SameCodeException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_BAD_REQUEST, ERROR_BASE_CURRENCY_SAME_AS_TARGET_MESSAGE);
-        }
-        catch (AlreadyExistsException e) {
+        } catch (AlreadyExistsException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_CONFLICT,
                     String.format(ERROR_PAIR_EXISTS_MESSAGE, baseCurrencyCode + targetCurrencyCode));
-        }
-        catch (NotFoundException e) {
+        } catch (NotFoundException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_NOT_FOUND,
                     String.format(ERROR_CURRENCY_NOT_FOUND_MESSAGE, baseCurrencyCode, targetCurrencyCode));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ERROR_GENERIC_MESSAGE);
         }
     }

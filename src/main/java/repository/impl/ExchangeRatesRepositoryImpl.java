@@ -34,8 +34,7 @@ public class ExchangeRatesRepositoryImpl implements CurrencyExchangeRepository<E
                 exchangeRatesList.add(getExchangeRate(resultSet));
             }
 
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException("Error fetching exchange rates from the database", e);
         }
         return exchangeRatesList;
@@ -45,11 +44,11 @@ public class ExchangeRatesRepositoryImpl implements CurrencyExchangeRepository<E
     public ExchangeRates findByCode(String pair) {
         ExchangeRates exchangeRate = null;
 
-        int baseCurrencyId = CurrencyIdExtractor.getCurrencyIdByCode(pair.substring(0,3));
+        int baseCurrencyId = CurrencyIdExtractor.getCurrencyIdByCode(pair.substring(0, 3));
         int targetCurrencyId = CurrencyIdExtractor.getCurrencyIdByCode(pair.substring(3));
 
         try (Connection connection = DatabaseConnection.createConnection();
-             PreparedStatement statement = connection.prepareStatement(FIND_BY_CODE_QUERY)){
+             PreparedStatement statement = connection.prepareStatement(FIND_BY_CODE_QUERY)) {
 
             statement.setInt(1, baseCurrencyId);
             statement.setInt(2, targetCurrencyId);
@@ -59,8 +58,7 @@ public class ExchangeRatesRepositoryImpl implements CurrencyExchangeRepository<E
                     exchangeRate = getExchangeRate(resultSet);
                 }
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException("Error retrieving exchange rate by code", e);
         }
         return exchangeRate;
@@ -77,13 +75,12 @@ public class ExchangeRatesRepositoryImpl implements CurrencyExchangeRepository<E
             statement.setInt(2, entity.getTargetCurrencyId());
             statement.setBigDecimal(3, entity.getRate());
 
-            try (ResultSet resultSet = statement.executeQuery()){
+            try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     savedExchangeRate = getExchangeRate(resultSet);
                 }
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException("Error saving exchange rate", e);
         }
 
@@ -93,18 +90,17 @@ public class ExchangeRatesRepositoryImpl implements CurrencyExchangeRepository<E
     @Override
     public void delete(String pair) {
 
-        int baseCurrencyId = CurrencyIdExtractor.getCurrencyIdByCode(pair.substring(0,3));
+        int baseCurrencyId = CurrencyIdExtractor.getCurrencyIdByCode(pair.substring(0, 3));
         int targetCurrencyId = CurrencyIdExtractor.getCurrencyIdByCode(pair.substring(3));
 
         try (Connection connection = DatabaseConnection.createConnection();
-             PreparedStatement statement = connection.prepareStatement(DELETE_QUERY)){
+             PreparedStatement statement = connection.prepareStatement(DELETE_QUERY)) {
 
             statement.setInt(1, baseCurrencyId);
             statement.setInt(2, targetCurrencyId);
 
             statement.executeUpdate();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException("Error deleting exchange rate", e);
         }
     }
@@ -120,7 +116,7 @@ public class ExchangeRatesRepositoryImpl implements CurrencyExchangeRepository<E
             statement.setInt(2, entity.getBaseCurrencyId());
             statement.setInt(3, entity.getTargetCurrencyId());
 
-            try (ResultSet resultSet = statement.executeQuery()){
+            try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     updatedExchangeRate = getExchangeRate(resultSet);
                 }

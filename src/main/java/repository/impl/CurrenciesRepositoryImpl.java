@@ -88,7 +88,7 @@ public class CurrenciesRepositoryImpl implements CurrencyExchangeRepository<Curr
     public void delete(String code) {
 
         try (Connection connection = DatabaseConnection.createConnection();
-            PreparedStatement statement = connection.prepareStatement(DELETE_QUERY)){
+             PreparedStatement statement = connection.prepareStatement(DELETE_QUERY)) {
 
             statement.setString(1, code);
             statement.executeUpdate();
@@ -109,8 +109,8 @@ public class CurrenciesRepositoryImpl implements CurrencyExchangeRepository<Curr
             statement.setString(2, entity.getSign());
             statement.setString(3, entity.getCode());
 
-            try (ResultSet resultSet = statement.executeQuery()){
-                if (resultSet.next()){
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
                     updatedCurrency = getCurrency(resultSet);
                 }
             }

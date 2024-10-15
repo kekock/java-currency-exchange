@@ -22,9 +22,11 @@ public class CurrencyServlet extends HttpServlet {
     private static final String UTF_8_ENCODING = "UTF-8";
     private static final String ERROR_CURRENCY_NOT_FOUND_MESSAGE = "Currency not found";
     private static final String ERROR_INVALID_CURRENCY_CODE_MESSAGE = "Invalid or missing currency code";
-    private static final String ERROR_MISSING_FORM_FIELDS_MESSAGE = "Invalid or missing required form fields.";;
+    private static final String ERROR_MISSING_FORM_FIELDS_MESSAGE = "Invalid or missing required form fields.";
+    ;
     private static final String ERROR_NOT_MODIFIED_MESSAGE = "No changes to apply";
-    private static final String ERROR_GENERIC_MESSAGE = "Sorry, something went wrong on our end. Please try again later.";;
+    private static final String ERROR_GENERIC_MESSAGE = "Sorry, something went wrong on our end. Please try again later.";
+    ;
 
     private CurrenciesServiceImpl service;
 
@@ -40,14 +42,11 @@ public class CurrencyServlet extends HttpServlet {
         try {
             CurrenciesDTO currency = service.findByCode(pathInfo);
             Response.sendJsonResponse(resp, currency);
-        }
-        catch (InvalidCodeException e) {
+        } catch (InvalidCodeException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_BAD_REQUEST, ERROR_INVALID_CURRENCY_CODE_MESSAGE);
-        }
-        catch (NotFoundException e) {
+        } catch (NotFoundException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_NOT_FOUND, ERROR_CURRENCY_NOT_FOUND_MESSAGE);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ERROR_GENERIC_MESSAGE);
         }
     }
@@ -59,18 +58,15 @@ public class CurrencyServlet extends HttpServlet {
         try {
             service.delete(pathInfo);
             resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
-        }
-        catch (InvalidCodeException e) {
+        } catch (InvalidCodeException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_BAD_REQUEST, ERROR_INVALID_CURRENCY_CODE_MESSAGE);
-        }
-        catch (NotFoundException e) {
+        } catch (NotFoundException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_NOT_FOUND, ERROR_CURRENCY_NOT_FOUND_MESSAGE);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ERROR_GENERIC_MESSAGE);
         }
     }
-    
+
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String method = req.getMethod();
@@ -96,20 +92,15 @@ public class CurrencyServlet extends HttpServlet {
             resp.setStatus(HttpServletResponse.SC_OK);
 
             Response.sendJsonResponse(resp, updatedCurrency);
-        }
-        catch (InvalidCodeException e) {
+        } catch (InvalidCodeException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_BAD_REQUEST, ERROR_INVALID_CURRENCY_CODE_MESSAGE);
-        }
-        catch (MissingFormFieldsException e) {
+        } catch (MissingFormFieldsException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_BAD_REQUEST, ERROR_MISSING_FORM_FIELDS_MESSAGE);
-        }
-        catch (NotFoundException e) {
+        } catch (NotFoundException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_NOT_FOUND, ERROR_CURRENCY_NOT_FOUND_MESSAGE);
-        }
-        catch (NotModifiedException e) {
+        } catch (NotModifiedException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_BAD_REQUEST, ERROR_NOT_MODIFIED_MESSAGE);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ERROR_GENERIC_MESSAGE);
         }
     }

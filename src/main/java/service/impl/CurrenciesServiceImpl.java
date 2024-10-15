@@ -43,11 +43,11 @@ public class CurrenciesServiceImpl implements CurrencyExchangeService<Currencies
 
     @Override
     public CurrenciesDTO save(String name, String code, String sign) {
-        if(!Validation.areValidCurrencyFormFields(name, code, sign)){
+        if (!Validation.areValidCurrencyFormFields(name, code, sign)) {
             throw new MissingFormFieldsException();
         }
 
-        if(repository.findByCode(code) != null){
+        if (repository.findByCode(code) != null) {
             throw new AlreadyExistsException();
         }
 

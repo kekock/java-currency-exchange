@@ -29,7 +29,7 @@ public class ExchangeServlet extends HttpServlet {
     private ExchangeService service;
 
     @Override
-    public void init(){
+    public void init() {
         this.service = new ExchangeService();
     }
 
@@ -42,19 +42,15 @@ public class ExchangeServlet extends HttpServlet {
         String exchangeAmount = req.getParameter(PARAM_AMOUNT);
 
         try {
-            ExchangeResultDTO result = service.convertCurrency(fromCurrencyCode, toCurrencyCode, exchangeAmount );
+            ExchangeResultDTO result = service.convertCurrency(fromCurrencyCode, toCurrencyCode, exchangeAmount);
             Response.sendJsonResponse(resp, result);
-        }
-        catch (MissingFormFieldsException e) {
+        } catch (MissingFormFieldsException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_BAD_REQUEST, ERROR_MISSING_FIELDS_MESSAGE);
-        }
-        catch (SameCodeException e) {
+        } catch (SameCodeException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_BAD_REQUEST, ERROR_BASE_CURRENCY_SAME_AS_TARGET_MESSAGE);
-        }
-        catch (NotFoundException e) {
+        } catch (NotFoundException e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_NOT_FOUND, String.format(ERROR_PAIR_NOT_FOUND_MESSAGE, fromCurrencyCode + toCurrencyCode));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Response.sendErrorResponse(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ERROR_GENERIC_MESSAGE);
         }
     }
