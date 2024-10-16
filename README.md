@@ -65,11 +65,11 @@ http://localhost:8080/
 | full_name | VARCHAR(30) | Full currency name, unique, not null          |
 | sign      | VARCHAR(5)  | Currency symbol, not null                     |
 
-**Example record for US dollar**:
+**Example record for US Dollar**:
 
 | id | code | full_name | sign |
 |----|------|-----------|------|
-| 1  | USD  | US dollar | $    |
+| 1  | USD  | US Dollar | $    |
 
 #### ExchangeRates
 | Column             | Type          | Description                                                          |

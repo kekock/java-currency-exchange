@@ -23,10 +23,8 @@ public class CurrencyServlet extends HttpServlet {
     private static final String ERROR_CURRENCY_NOT_FOUND_MESSAGE = "Currency not found";
     private static final String ERROR_INVALID_CURRENCY_CODE_MESSAGE = "Invalid or missing currency code";
     private static final String ERROR_MISSING_FORM_FIELDS_MESSAGE = "Invalid or missing required form fields.";
-    ;
     private static final String ERROR_NOT_MODIFIED_MESSAGE = "No changes to apply";
     private static final String ERROR_GENERIC_MESSAGE = "Sorry, something went wrong on our end. Please try again later.";
-    ;
 
     private CurrenciesServiceImpl service;
 
