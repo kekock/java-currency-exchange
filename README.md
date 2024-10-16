@@ -62,12 +62,12 @@ http://localhost:8080/
 #### The front end of this project is designed to provide a user-friendly interface for interacting with the Currency Exchange REST API. It allows users to perform the following actions:
 
 - **View Currencies:** Users can see a list of all available currencies, including their code, name, and sign.
-- **Delete Currency:** Users can delete a currency that is no longer needed via a "Delete" button next to each currency.
-- **Update Currency:** Users can update existing currency details using the "Edit" button in the Options column.
+- **Delete Currency:** Users can delete a currency that is no longer needed via a `Delete` button next to each currency.
+- **Update Currency:** Users can update existing currency details using the `Edit` button in the Options column.
 - **Add Currencies:** A form allows users to add new currencies by entering the code, name, and sign.
 - **View Exchange Rates:** Users can view all available exchange rates in a table.
-- **Delete Exchange Rate:** Users can delete an exchange rate via a "Delete" button next to each rate.
-- **Update Exchange Rate:** Users can update exchange rates via the "Edit" button next to each entry.
+- **Delete Exchange Rate:** Users can delete an exchange rate via a `Delete` button next to each rate.
+- **Update Exchange Rate:** Users can update exchange rates via the `Edit` button next to each entry.
 - **Add Exchange Rate:** Users can add a new exchange rate by selecting a base currency and a target currency from the dropdown, and then inputting the exchange rate.
 - **Calculate Currency Conversion:** Users can select a base and target currency, input an amount, and then calculate the converted value based on the current exchange rate by clicking the "Convert" button.
 
