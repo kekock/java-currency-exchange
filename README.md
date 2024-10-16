@@ -317,8 +317,8 @@ GET http://localhost:8080/exchangeRate/USDHUF
 
 Request Body (x-www-form-urlencoded):
 
-- baseCurrencyCode: Base currency code (e.g., USD).
-- targetCurrencyCode: Target currency code (e.g., EUR).
+- baseCurrencyCode: Base currency code (e.g., **USD**).
+- targetCurrencyCode: Target currency code (e.g., **EUR**).
 - rate: Exchange rate.
 
 
@@ -421,8 +421,8 @@ Status: 204 No Content
 **Description**: Convert an amount of money from one currency to another.
 
 Request Parameters:
-- from: The currency code you are converting from (e.g., BRL for Brazilian Real).
-- to: The currency code you are converting to (e.g., EUR for Euro).
+- from: The currency code you are converting from (e.g., **BRL** for Brazilian Real).
+- to: The currency code you are converting to (e.g., **EUR** for Euro).
 - amount: The amount of money you want to convert.
 
 **Example Request**:
@@ -461,7 +461,7 @@ Obtaining the exchange rate for conversion can follow one of three scenarios.
 Let's assume the conversion is from currency `A` to currency `B`:
 
 1. If the currency pair `AB` exists in the `ExchangeRates` table, the corresponding rate is used.
-2. If the currency pair `BA` exists in the `ExchangeRates` table, its rate is taken, and the inverse is calculated to obtain the AB rate.
+2. If the currency pair `BA` exists in the `ExchangeRates` table, its rate is taken, and the inverse is calculated to obtain the `AB` rate.
 3. If currency pairs `USD-A` and `USD-B` exist in the `ExchangeRates` table, the `AB` rate is computed based on these rates.
 
 ### Error Hangings
