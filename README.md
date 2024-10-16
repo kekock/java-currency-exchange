@@ -129,7 +129,7 @@ GET http://localhost:8080/currencies
 **Error Responses**:
 - 500: Internal Server Error – Database connection failed.
 
-### GET /currencies/{code}
+### GET /currencies/{_code_}
 **Description**: Retrieve details of a specific currency by its code.
 
 **Example Request**:
@@ -183,7 +183,7 @@ key: sign, value: R$
 - 409: Conflict – Currency with the given code already exists.
 - 500: Internal Server Error – Database connection failed.
 
-### PATCH /currencies/{code}
+### PATCH /currencies/{_code_}
 **Description**: Update the details of an existing currency by its code.
 
 Request Body (x-www-form-urlencoded):
@@ -215,7 +215,7 @@ key: sign, value: ₮
 - 400: Bad Request – Nothing to update.
 - 500: Internal Server Error – Database connection failed.
 
-### DELETE /currencies/{code}
+### DELETE /currencies/{_code_}
 > _**Note**: If a user deletes the currency with {code}, then all exchange rates that have it as either the base or target currency will be deleted as well._
 
 **Description**: Delete a currency from the system by its code.
@@ -280,7 +280,7 @@ GET http://localhost:8080/exchangeRates
 **Error Responses**:
 - 500: Internal Server Error – Database connection failed.
 
-### GET /exchangeRate/{pair-code}
+### GET /exchangeRate/{_pair-code_}
 **Description**: Retrieve the exchange rate for a specific currency pair.
 
 **Example Request**:
@@ -354,12 +354,12 @@ key: rate, value: 5.42
 **Error Responses**:
 
 - 400: Bad Request – Invalid or missing required fields.
-- 400: Bad Request - Base currency code same as target currency code;
+- 400: Bad Request – Base currency code same as target currency code;
 - 404: Not Found – One or both currencies not found.
 - 409: Conflict – Exchange rate for this currency pair already exists.
 - 500: Internal Server Error – Database connection failed.
 
-### PATCH /exchangeRate/{pair-code}
+### PATCH /exchangeRate/{_pair-code_}
 **Description**: Update the exchange rate for a specific currency pair.
 
 Request Body (x-www-form-urlencoded):
@@ -400,7 +400,7 @@ key: rate, value: 5.32
 - 404: Not Found – Exchange rate not found.
 - 500: Internal Server Error – Database connection failed.
 
-### DELETE /exchangeRate/{pair-code}
+### DELETE /exchangeRate/{_pair-code_}
 **Description**: Delete an exchange rate for a specific currency pair.
 
 **Example Request**:
@@ -417,7 +417,7 @@ Status: 204 No Content
 - 404: Not Found – Exchange rate not found.
 - 500: Internal Server Error – Database connection failed.
 
-### GET /exchange?from={base-code}&to={target-code}&amount={amount}
+### GET /exchange?from={_base-code_}&to={_target-code_}&amount={_amount_}
 **Description**: Convert an amount of money from one currency to another.
 
 Request Parameters:
@@ -452,17 +452,17 @@ GET http://localhost:8080/exchange?from=BRL&to=EUR&amount=450
 **Error Responses**:
 
 - 400: Bad Request – Missing or invalid parameters.
-- 400: Bad Request - Base and target currencies are the same.
+- 400: Bad Request – Base and target currencies are the same.
 - 404: Not Found – One or both currencies not found.
 - 500: Internal Server Error – Database connection failed.
 
 ### Currency Conversion Scenarios
 Obtaining the exchange rate for conversion can follow one of three scenarios. 
-Let's assume we're converting from currency A to currency B:
+Let's assume the conversion is from currency `A` to currency `B`:
 
-- If the currency pair AB exists in the ExchangeRates table, we take its rate.
-- If the currency pair BA exists in the ExchangeRates table, we take its rate and calculate the inverse to obtain the AB rate.
-- If currency pairs USD-A and USD-B exist in the ExchangeRates table, we compute the AB rate based on these rates.
+1. If the currency pair `AB` exists in the `ExchangeRates` table, the corresponding rate is used.
+2. If the currency pair `BA` exists in the `ExchangeRates` table, its rate is taken, and the inverse is calculated to obtain the AB rate.
+3. If currency pairs `USD-A` and `USD-B` exist in the `ExchangeRates` table, the `AB` rate is computed based on these rates.
 
 ### Error Hangings
 For all requests, in case of an error, the response will look like this:
